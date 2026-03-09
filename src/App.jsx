@@ -24,7 +24,7 @@ function App() {
         {/* logo */}
         <div className='group flex flex-col items-center gap-3
           cursor-pointer'>
-          <img src='assets/logo.png' alt='logo' className='w-32 group-hover:scale-[1.02] origin-top' />
+          <img src='/logo.png' alt='logo' className='w-32 group-hover:scale-[1.02] origin-top' />
 
           <p className='text-sm uppercase font-extrabold tracking-wider group-hover:scale-[.98] origin-bottom'>
             Andijon
@@ -61,8 +61,8 @@ function App() {
           </h1>
         </div>
       </main>
-      
-  )
+
+      )
 }
-        
-export default App
+
+      export default App
