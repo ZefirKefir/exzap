@@ -61,8 +61,8 @@ function App() {
           </h1>
         </div>
       </main>
-
-      )
+    </>
+  )
 }
 
-      export default App
+export default App
