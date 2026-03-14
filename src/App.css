@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+.para {
+  /* Example color */
+  clip-path: xywh(0 0 100% 100% round 25% 0);
+}
+
+.carousel {
+  animation: carousel 12s linear infinite;
+}
+
+.carousel:hover {
+  animation-play-state: paused;
+}
+
+.carousel:active {
+  animation-play-state: paused;
+}
+
+@keyframes carousel {
+  to {
+    transform: translateX(calc(-50% - 0.625rem));
+  }
+}
