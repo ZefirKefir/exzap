@@ -38,12 +38,12 @@ const Catalog = () => {
         '>
           {data.oils.map((oil, i) => (
             <li key={i}>
-              <img src={oil.image} alt={oil.name} className='h-20' />
+              <img src={oil.image} alt={oil.name} className='max-w-48 max-h-24' />
             </li>
           ))}
           {data.oils.map((oil, i) => (
             <li key={i} aria-hidden>
-              <img src={oil.image} alt={oil.name} className='h-20' />
+              <img src={oil.image} alt={oil.name} className='max-w-48 max-h-24' />
             </li>
           ))}
         </ul>
@@ -80,12 +80,12 @@ const Catalog = () => {
         '>
           {data.coolants.map((coolant, i) => (
             <li key={i}>
-              <img src={coolant.image} alt={coolant.name} className='h-20' />
+              <img src={coolant.image} alt={coolant.name} className='max-w-48 max-h-24' />
             </li>
           ))}
           {data.coolants.map((coolant, i) => (
             <li key={i} aria-hidden>
-              <img src={coolant.image} alt={coolant.name} className='h-20' />
+              <img src={coolant.image} alt={coolant.name} className='max-w-48 max-h-24' />
             </li>
           ))}
         </ul>
@@ -106,12 +106,12 @@ const Catalog = () => {
         '>
           {data.accumulators.map((accumulator, i) => (
             <li key={i}>
-              <img src={accumulator.image} alt={accumulator.name} className='h-20' />
+              <img src={accumulator.image} alt={accumulator.name} className='max-w-48 max-h-24' />
             </li>
           ))}
           {data.accumulators.map((accumulator, i) => (
             <li key={i} aria-hidden>
-              <img src={accumulator.image} alt={accumulator.name} className='h-20' />
+              <img src={accumulator.image} alt={accumulator.name} className='max-w-48 max-h-24' />
             </li>
           ))}
         </ul>
@@ -198,7 +198,7 @@ const Catalog = () => {
         '>
           {data.tires.map((tire, i) => (
             <li key={i}>
-              <img src={tire.image} alt={tire.name} className='h-20' />
+              <img src={tire.image} alt={tire.name} className='max-w-48 max-h-24' />
             </li>
           ))}
         </ul>

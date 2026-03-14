@@ -1,5 +1,6 @@
 import { Phone } from 'lucide-react'
-import React from 'react'
+
+import logo from '/public/logo.png';
 
 const Navbar = () => {
   return (
@@ -21,7 +22,7 @@ const Navbar = () => {
         </a>
         {/* logo */}
         <div className='flex flex-col items-center gap-3 cursor-pointer group'>
-          <img src='public/images/logo.png' alt='logo' className='w-32 group-hover:scale-[1.02] origin-top' />
+          <img src={logo} alt='logo' className='w-32 group-hover:scale-[1.02] origin-top' />
 
           <p className='text-sm uppercase font-extrabold tracking-wider group-hover:scale-[.98] origin-bottom'>
             Andijon
