@@ -3,10 +3,7 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-    <header className='z-50
-        fixed top-0 left-0 w-full
-        px-5 py-4 bg-red-800 rounded-b-lg text-white
-      '>
+    <header className='fixed top-0 left-0 z-50 w-full px-5 py-4 text-white bg-red-800 rounded-b-lg '>
       <nav className='
         flex items-center justify-between
         [&>*,&>*>*]:duration-500'
@@ -23,9 +20,8 @@ const Navbar = () => {
           <Phone className='w-8 group-hover:text-rose-800/80 group-active:text-rose-800/80' />
         </a>
         {/* logo */}
-        <div className='group flex flex-col items-center gap-3
-          cursor-pointer'>
-          <img src='public/logo.png' alt='logo' className='w-32 group-hover:scale-[1.02] origin-top' />
+        <div className='flex flex-col items-center gap-3 cursor-pointer group'>
+          <img src='public/images/logo.png' alt='logo' className='w-32 group-hover:scale-[1.02] origin-top' />
 
           <p className='text-sm uppercase font-extrabold tracking-wider group-hover:scale-[.98] origin-bottom'>
             Andijon
