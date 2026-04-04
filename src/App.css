@@ -13,12 +13,26 @@
   animation-play-state: paused;
 }
 
-.carousel:active {
-  animation-play-state: paused;
+div:has(.no-more)::-webkit-scrollbar {
+  display: none;
+}
+
+div:has(.no-more) {
+  scrollbar-width: none;
+}
+
+.xpad {
+  @apply md:px-10
 }
 
 @keyframes carousel {
   to {
     transform: translateX(calc(-50% - 0.625rem));
+  }
+}
+
+@keyframes neutral {
+  to {
+    transform: translateX(30px);
   }
 }

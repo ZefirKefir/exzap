@@ -1,14 +1,61 @@
-import React from 'react'
 import data from '../../public/data'
+import ProductImage from './ProductImage'
+import CarouselToggle from './CarouselToggle'
+import { useEffect, useState } from 'react'
+import CatalogTitle from './CatalogTitle'
+import CarouselContainer from './CarouselContainer'
+import { CheckCheck, Icon } from 'lucide-react'
+
 
 const Catalog = () => {
+  const [carousel, setCarousel] = useState(true);
+  useEffect(() => {
+    const carousels = document.querySelectorAll('.carousel');
+
+    const button = document.querySelector('.carousel-button');
+    button.addEventListener('click', () => {
+      carousels.forEach(elem => {
+        const parent = elem.closest('div');
+
+        if (!elem.classList.contains('no-more')) {
+          elem.style.animationPlayState = 'paused';
+          elem.style.transform = 'translateX(' + elem.getBoundingClientRect().left + 'px)';
+          elem.style.animation = 'none';
+          // todo: make carousel available for mobile on each section
+          setTimeout(() => {
+            elem.style.transform = 'translateX(0)';
+            elem.classList.add('xpad');
+            parent.style.overflowX = 'scroll';
+          }, 0);
+        } else {
+          parent.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+          });
+          // elem.style.padding = 0;
+          parent.style.overflowX = 'hidden';
+          elem.style.animation = 'carousel 12s linear infinite';
+          elem.addEventListener('mouseover', () => {
+            elem.style.animationPlayState = 'paused';
+          });
+          elem.addEventListener('mouseout', () => {
+            elem.style.animationPlayState = 'running';
+          });
+        }
+      })
+    })
+  }, []);
+
   return (
-    <section className='py-12'>
-      <h2 className='mb-10 text-2xl font-bold tracking-wider text-center md:text-3xl'>
+    <section className='relative py-12'>
+      <CarouselToggle carousel={carousel} setCarousel={setCarousel} />
+      <h2 className='text-2xl font-bold tracking-wider text-center mb-28 sm:mb-20 md:text-3xl'>
         Bizning <span className='text-red-800'>mahsulotlarimiz</span>
       </h2>
-      <h3 className='flex items-center gap-6 ml-10 text-xl font-semibold tracking-wide md:text-2xl'>
-        {/* oil */}
+
+      {/* 1. oil */}
+      <CatalogTitle>
         <svg className='w-16' viewBox="0 0 488.162 488.162">
           <g className='*:fill-red-800'>
             <path d="M440.443,91.682c0-26.385-21.468-47.853-47.853-47.853h-35.205h-109.24V24.386
@@ -31,24 +78,22 @@ const Catalog = () => {
           </g>
         </svg>
         Motor moylari
-      </h3>
-      <div className='relative overflow-x-hidden'>
-        <ul className='mt-6 mb-8 flex gap-5 items-center *:shrink-0
-          carousel w-max
-        '>
-          {data.oils.map((oil, i) => (
-            <li key={i}>
-              <img src={oil.image} alt={oil.name} className='max-w-48 max-h-24' />
-            </li>
-          ))}
-          {data.oils.map((oil, i) => (
-            <li key={i} aria-hidden>
-              <img src={oil.image} alt={oil.name} className='max-w-48 max-h-24' />
-            </li>
-          ))}
-        </ul>
-      </div>
-      <h3 className='flex items-center gap-6 ml-10 text-xl font-semibold tracking-wide md:text-2xl'>
+      </CatalogTitle>
+      <CarouselContainer carousel={carousel}>
+        {data.oils.map((oil, i) => (
+          <li key={i}>
+            <ProductImage src={oil.image} alt={oil.name} />
+          </li>
+        ))}
+        {data.oils.map((oil, i) => (
+          <li className={(!carousel) ? 'hidden' : ''} key={i} aria-hidden>
+            <ProductImage src={oil.image} alt={oil.name} />
+          </li>
+        ))}
+      </CarouselContainer>
+
+      {/* 2. antifreeze */}
+      <CatalogTitle>
         <svg className='w-16 fill-red-800' viewBox="0 0 191.851 191.851" >
           <g>
             <path d="M188.103,147.322c-3.583-2.072-8.173-0.849-10.247,2.739c-4.734,8.189-13.54,13.275-22.979,13.275
@@ -73,81 +118,46 @@ const Catalog = () => {
           </g>
         </svg>
         Antifriz va tosollar
-      </h3>
-      <div className='relative overflow-x-hidden'>
-        <ul className='mt-6 mb-8 flex gap-5 items-center *:shrink-0
-          carousel w-max
-        '>
-          {data.coolants.map((coolant, i) => (
-            <li key={i}>
-              <img src={coolant.image} alt={coolant.name} className='max-w-48 max-h-24' />
-            </li>
-          ))}
-          {data.coolants.map((coolant, i) => (
-            <li key={i} aria-hidden>
-              <img src={coolant.image} alt={coolant.name} className='max-w-48 max-h-24' />
-            </li>
-          ))}
-        </ul>
-      </div>
-      <h3 className='flex items-center gap-6 ml-10 text-xl font-semibold tracking-wide md:text-2xl'>
+      </CatalogTitle>
+      <CarouselContainer carousel={carousel}>
+        {data.antifreeze.map((af, i) => (
+          <li key={i}>
+            <ProductImage src={af.image} alt={af.name} />
+          </li>
+        ))}
+        {data.antifreeze.map((af, i) => (
+          <li className={(!carousel) ? 'hidden' : ''} key={i} aria-hidden>
+            <ProductImage src={af.image} alt={af.name} />
+          </li>
+        ))}
+      </CarouselContainer>
+
+      {/* 3. accumulators */}
+      <CatalogTitle>
         <svg viewBox="0 0 24 24" fill="none" className='w-16 *:stroke-red-800 *:stroke-[1.75]'>
           <path d="M22 14V11.9751C22 10.1294 22 9.20663 21.6078 8.51698C21.3409 8.04767 20.9523 7.65908 20.483 7.39219C19.7934 7 18.8706 7 17.0249 7H16.7454C16.6224 7 16.561 7 16.5042 6.9935C16.2083 6.95961 15.943 6.79559 15.7803 6.54609C15.7491 6.49827 15.7216 6.44329 15.6667 6.33333C15.5567 6.11345 15.5017 6.00345 15.4394 5.90782C15.1141 5.40882 14.5833 5.08078 13.9915 5.01299C13.8781 5 13.7552 5 13.5093 5H10.4907C10.2448 5 10.1219 5 10.0085 5.01299C9.41668 5.08078 8.8859 5.40882 8.56062 5.90782C8.49827 6.00346 8.44329 6.11342 8.33333 6.33333C8.27836 6.44328 8.25086 6.49827 8.21969 6.54609C8.05705 6.79559 7.79166 6.95961 7.49576 6.9935C7.43905 7 7.37758 7 7.25464 7H6.97508C5.12945 7 4.20663 7 3.51698 7.39219C3.04767 7.65908 2.65908 8.04767 2.39219 8.51698C2 9.20663 2 10.1294 2 11.9751V14C2 16.8284 2 18.2426 2.87868 19.1213C3.75736 20 5.17157 20 8 20H16C18.8284 20 20.2426 20 21.1213 19.1213C22 18.2426 22 16.8284 22 14Z" />
           <path d="M7 7V6C7 5.05719 7 4.58579 6.70711 4.29289C6.41421 4 5.94281 4 5 4C4.05719 4 3.58579 4 3.29289 4.29289C3 4.58579 3 5.05719 3 6V7.5" />
           <path d="M21 8V6C21 5.05719 21 4.58579 20.7071 4.29289C20.4142 4 19.9428 4 19 4C18.0572 4 17.5858 4 17.2929 4.29289C17 4.58579 17 5.05719 17 6V7" />
-          <path d="M9 13.5H6" stroke-linecap="round" />
-          <path d="M18 13.5L16.5 13.5M16.5 13.5L15 13.5M16.5 13.5L16.5 12M16.5 13.5L16.5 15" stroke-linecap="round" />
+          <path d="M9 13.5H6" strokeLinecap="round" />
+          <path d="M18 13.5L16.5 13.5M16.5 13.5L15 13.5M16.5 13.5L16.5 12M16.5 13.5L16.5 15" strokeLinecap="round" />
         </svg>
         Akkumulyatorlar
-      </h3>
-      <div className='relative overflow-x-hidden'>
-        <ul className='mt-6 mb-8 flex gap-5 items-center *:shrink-0
-          carousel w-max
-        '>
-          {data.accumulators.map((accumulator, i) => (
-            <li key={i}>
-              <img src={accumulator.image} alt={accumulator.name} className='max-w-48 max-h-24' />
-            </li>
-          ))}
-          {data.accumulators.map((accumulator, i) => (
-            <li key={i} aria-hidden>
-              <img src={accumulator.image} alt={accumulator.name} className='max-w-48 max-h-24' />
-            </li>
-          ))}
-        </ul>
-      </div>
-      <h3 className='flex items-center gap-6 ml-10 text-xl font-semibold tracking-wide md:text-2xl'>
-        {/* <svg className='w-16 fill-red-800'
-          viewBox="0 0 512 512" xml:space="preserve">
-          <g>
-            <path d="M256.004,0C114.613,0,0.001,114.613,0.001,256.004C0.001,397.387,114.613,512,256.004,512
-		c141.383,0,255.996-114.613,255.996-255.996C511.999,114.613,397.387,0,256.004,0z M256.004,419.18
-		c-90.128,0-163.185-73.048-163.185-163.176S165.876,92.82,256.004,92.82c90.12,0,163.176,73.057,163.176,163.185
-		S346.124,419.18,256.004,419.18z"/>
-            <path d="M256.004,271.78c8.718,0,15.776-7.058,15.776-15.776c0-8.718-7.058-15.784-15.776-15.784
-		c-8.725,0-15.784,7.066-15.784,15.784C240.219,264.722,247.279,271.78,256.004,271.78z"/>
-            <path d="M150.727,196.65c1.108,2.954,3.495,5.239,6.5,6.212l56.239,18.289c5.239,1.684,10.977,0.787,15.429-2.446
-		c4.444-3.25,7.092-8.421,7.092-13.923v-59.1c0-3.148-1.446-6.136-3.927-8.082c-2.471-1.972-5.704-2.683-8.768-1.972
-		c0,0,0.838-0.634-4.85,1.152c-26.541,8.37-49.283,25.34-64.898,47.666c-3.216,4.587-1.98,3.275-1.98,3.275
-		C149.948,190.404,149.644,193.688,150.727,196.65z"/>
-            <path d="M212.147,270.265c-1.701-5.248-5.807-9.361-11.045-11.045l-56.215-18.264
-		c-2.996-0.973-6.271-0.516-8.895,1.218c-2.624,1.752-4.308,4.604-4.579,7.752c0,0-0.338-0.998-0.398,4.96
-		c-0.254,27.828,8.87,54.683,25.273,76.451c3.368,4.469,2.488,2.886,2.488,2.886c2.073,2.378,5.103,3.682,8.235,3.554
-		c3.156-0.127,6.076-1.684,7.921-4.24l34.768-47.861C212.933,281.234,213.839,275.487,212.147,270.265z"/>
-            <path d="M269.927,309.206c-3.25-4.443-8.422-7.084-13.923-7.084c-5.509,0-10.681,2.641-13.906,7.084l-34.75,47.81
-		c-1.845,2.547-2.438,5.814-1.575,8.861c0.838,3.038,3.03,5.51,5.95,6.738c0,0-1.066,0.025,4.596,1.921
-		c26.389,8.844,54.75,8.454,80.505-0.424c5.289-1.819,3.52-1.473,3.52-1.473c2.912-1.218,5.095-3.706,5.933-6.736
-		c0.846-3.047,0.245-6.297-1.6-8.845L269.927,309.206z"/>
-            <path d="M367.155,240.939l-56.248,18.281c-5.23,1.684-9.352,5.797-11.037,11.045
-		c-1.709,5.222-0.804,10.968,2.446,15.403l34.726,47.819c1.862,2.564,4.782,4.096,7.938,4.249c3.149,0.135,6.178-1.194,8.235-3.58
-		c0,0-0.304,1.007,3.241-3.775c16.564-22.368,24.984-49.478,24.502-76.705c-0.094-5.586-0.33-3.792-0.33-3.792
-		c-0.271-3.148-1.946-6-4.578-7.735C373.426,240.423,370.16,239.957,367.155,240.939z"/>
-            <path d="M283.112,218.706c4.461,3.225,10.182,4.13,15.421,2.446l56.198-18.289c3.005-0.966,5.392-3.259,6.5-6.212
-		c1.101-2.962,0.779-6.255-0.863-8.954c0,0,0.872,0.592-2.59-4.249c-16.148-22.674-39.321-39.042-65.372-47.006
-		c-5.358-1.625-3.724-0.863-3.724-0.863c-3.072-0.711-6.296,0.016-8.751,1.98c-2.48,1.938-3.919,4.926-3.919,8.066v59.152
-		C276.012,210.284,278.661,215.456,283.112,218.706z"/>
-          </g>
-        </svg> */}
+      </CatalogTitle>
+      <CarouselContainer carousel={carousel}>
+        {data.accumulators.map((accumulator, i) => (
+          <li key={i}>
+            <ProductImage src={accumulator.image} alt={accumulator.name} />
+          </li>
+        ))}
+        {data.accumulators.map((accumulator, i) => (
+          <li className={(!carousel) ? 'hidden' : ''} key={i} aria-hidden>
+            <ProductImage src={accumulator.image} alt={accumulator.name} />
+          </li>
+        ))}
+      </CarouselContainer>
+
+      {/* 4. tires */}
+      <CatalogTitle>
         <svg className='w-16 fill-red-800' viewBox="0 0 512 512">
           <g>
             <path d="M341.333,0H170.667C108.422,0,55.662,48.008,25.924,119.483c-0.024,0.055-0.044,0.11-0.067,0.165
@@ -192,17 +202,67 @@ const Catalog = () => {
           </g>
         </svg>
         Shinalar
-      </h3>
-      <div className='relative overflow-x-hidden'>
-        <ul className='mt-6 mb-8 flex justify-center gap-5 items-center *:shrink-0
-        '>
-          {data.tires.map((tire, i) => (
-            <li key={i}>
-              <img src={tire.image} alt={tire.name} className='max-w-48 max-h-24' />
-            </li>
-          ))}
-        </ul>
-      </div>
+      </CatalogTitle>
+      <CarouselContainer carousel={carousel} isShort>
+        {data.tires.map((tire, i) => (
+          <li key={i}>
+            <ProductImage src={tire.image} alt={tire.name} />
+          </li>
+        ))}
+      </CarouselContainer>
+
+      {/* 5. brake liquids */}
+      <CatalogTitle>
+        <CheckCheck className='block w-16 h-16 text-red-800' />
+        Tormoz suyuqligi
+      </CatalogTitle>
+      <CarouselContainer carousel={carousel} isShort>
+        {data.brakeFluids.map((bf, i) => (
+          <li key={i}>
+            <ProductImage src={bf.image} alt={bf.name} />
+          </li>
+        ))}
+      </CarouselContainer>
+
+      {/* 6. lubricants */}
+      <CatalogTitle>
+        <CheckCheck className='block w-16 h-16 text-red-800' />
+        Litol va smazkalar
+      </CatalogTitle>
+      <CarouselContainer carousel={carousel} isShort>
+        {data.lubricants.map((lube, i) => (
+          <li key={i}>
+            <ProductImage src={lube.image} alt={lube.name} />
+          </li>
+        ))}
+      </CarouselContainer>
+
+      {/* 7. glass liquids */}
+      <CatalogTitle>
+        <CheckCheck className='block w-16 h-16 text-red-800' />
+        Shisha yuvish suyuqligi
+      </CatalogTitle>
+      <CarouselContainer carousel={carousel} isShort>
+        {data.glassLiquids.map((gl, i) => (
+          <li key={i}>
+            <ProductImage src={gl.image} alt={gl.name} />
+          </li>
+        ))}
+      </CarouselContainer>
+
+      {/* 8. coolants */}
+      <CatalogTitle>
+        <CheckCheck className='block w-16 h-16 text-red-800' />
+        Issiqlik tashuvchilar
+      </CatalogTitle>
+      <CarouselContainer carousel={carousel} isShort>
+        {data.coolants.map((coolant, i) => (
+          <li key={i}>
+            <ProductImage src={coolant.image} alt={coolant.name} />
+          </li>
+        ))}
+      </CarouselContainer>
+
     </section>
   )
 }

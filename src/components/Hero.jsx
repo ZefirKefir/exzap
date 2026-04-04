@@ -6,15 +6,16 @@ import hero3 from '/public/hero3.jpg';
 
 const Hero = () => {
   return (
-    <section className='container flex flex-col items-center gap-12 px-5 mx-auto my-40 hero md:px-8 xl:px-10 md:flex-row lg:gap-28'>
+    <section className='container flex flex-col items-center gap-12 px-5 mx-auto mb-20 mt-36 md:my-40 hero md:px-8 xl:px-10 md:flex-row lg:gap-28'>
       {/* left - cta */}
       <div className='md:max-w-1/2'>
         <h1 className='text-3xl font-bold tracking-wide md:text-4xl'>
-          Something exciting!<br />
-          Do <span className='text-red-800'>not</span> miss your chance
+          Mashina uchun kerak bo'lgan hamma narsa!
         </h1>
-        <p className='mt-3 mb-4 max-w-3/4'>
-          Osmoning rangi ko'k, bu yerda bo'lsa sizning textingiz bo'lishi mumkin. Nima yozishni bilsangiz, bemalol aytaverasiz.<br />P.S. Кнопка o'zbekchada "tugma" bo'lar ekan
+        <p className='mt-3 mb-4 max-w-4/5'>
+          Biz sizning ehtiyojlaringizni qondirish uchun keng turdagi mahsulotlarni taqdim etamiz.
+          <span className='block h-3' />
+          Bizning hamkorlarimiz haqida ma'lumotni quyida topishingiz mumkin.
         </p>
         <Button>Katalogni ko'rish</Button>
       </div>

@@ -13,19 +13,24 @@ import coolClimate from '/public/partners/cool-climate.png';
 import felix from '/public/partners/felix.png';
 import xFreeze from '/public/partners/xfreeze.png';
 import sibiria from '/public/partners/sibiria.png';
-import shellCoolant from '/public/partners/shell-cool.png';
 import crystal from '/public/partners/crystal.png';
 import bosch from '/public/partners/bosch.png';
 import hankook from '/public/partners/hankook.png';
-import atlas from '/public/partners/atlas.png';
+import atlasbx from '/public/partners/atlasbx.png';
 import primax from '/public/partners/primax.png';
 import kainar from '/public/partners/kainar.png';
 import vinco from '/public/partners/vinco.png';
 import wolter from '/public/partners/wolter.png';
 import rover from '/public/partners/rover.png';
-import zestino from '/public/partners/zestino.png';
+import zest from '/public/partners/zest.png';
 import bars from '/public/partners/bars.png';
 import michelin from '/public/partners/michelin.png';
+import nextline from '/public/partners/nextline.png';
+import rosdot from '/public/partners/rosdot.png';
+import superr from '/public/partners/super.png';
+import gazpromneft from '/public/partners/gazpromneft.png';
+import thermoComfort from '/public/partners/thermo-comfort.png';
+import ecoTherm from '/public/partners/ecotherm.png';
 
 const data = {
   oils: [
@@ -70,7 +75,7 @@ const data = {
       image: volga,
     },
   ],
-  coolants: [
+  antifreeze: [
     {
       name: 'winner',
       image: winner,
@@ -92,8 +97,8 @@ const data = {
       image: sibiria,
     },
     {
-      name: 'shell coolant',
-      image: shellCoolant,
+      name: 'shell',
+      image: shell,
     },
     {
       name: 'valesco',
@@ -118,8 +123,8 @@ const data = {
       image: hankook,
     },
     {
-      name: 'atlas',
-      image: atlas,
+      name: 'atlasbx',
+      image: atlasbx,
     },
     {
       name: 'primax',
@@ -142,8 +147,8 @@ const data = {
       image: rover,
     },
     {
-      name: 'zestino',
-      image: zestino,
+      name: 'zest',
+      image: zest,
     },
     {
       name: 'bars',
@@ -158,6 +163,70 @@ const data = {
     {
       name: 'hankook',
       image: hankook,
+    },
+  ],
+  brakeFluids: [
+    {
+      name: 'nextline',
+      image: nextline,
+    },
+    {
+      name: 'winner',
+      image: winner,
+    },
+    {
+      name: 'felix',
+      image: felix,
+    },
+    {
+      name: 'rosdot',
+      image: rosdot,
+    },
+    {
+      name: 'super',
+      image: superr,
+    },
+    {
+      name: 'sintec',
+      image: sintec,
+    },
+  ],
+  lubricants: [
+    {
+      name: 'felix',
+      image: felix,
+    },
+    {
+      name: 'sintec',
+      image: sintec,
+    },
+    {
+      name: 'gazpromneft',
+      image: gazpromneft,
+    },
+  ],
+  glassLiquids: [
+    {
+      name: 'winner',
+      image: winner,
+    },
+    {
+      name: 'crystal',
+      image: crystal,
+    },
+    {
+      name: 'valesco',
+      image: valesco,
+    },
+  ],
+  coolants: [
+    {
+      name: 'thermo comfort',
+      image: thermoComfort,
+    },
+    {
+      name: 'ecoTherm',
+      image: ecoTherm,
     },
   ],
 };
