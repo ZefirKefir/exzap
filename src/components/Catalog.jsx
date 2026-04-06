@@ -43,7 +43,7 @@ const Catalog = () => {
   }, [carousel]);
 
   return (
-    <section className='relative py-12'>
+    <section className='relative py-12' id='catalog'>
       <CarouselToggle carousel={carousel} setCarousel={setCarousel} />
 
       <div className='relative pb-10 md:pb-20 sp:mb-20'>

@@ -3,9 +3,10 @@
 @theme {
   --breakpoint-xs: 360px;
   --breakpoint-m: 660px;
-  --breakpoint-2xl: 1600px;
+  --breakpoint-2xl: 1750px;
   --animate-carousel: carousel 6s linear infinite;
   --animate-ping-slow: ping 1.3s infinite;
+  --animate-ping-fast: ping .8s infinite;
 
 
   @keyframes carousel {
@@ -19,8 +20,8 @@
   animation-play-state: paused;
 }
 
-.sticky {
-  position: -webkit-sticky;
+#catalog {
+  scroll-margin-top: 100px;
 }
 
 .para {
