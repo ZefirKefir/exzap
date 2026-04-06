@@ -1,38 +1,36 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xs: 360px;
+  --breakpoint-m: 660px;
+  --breakpoint-2xl: 1600px;
+  --animate-carousel: carousel 6s linear infinite;
+  --animate-ping-slow: ping 1.3s infinite;
+
+
+  @keyframes carousel {
+    to {
+      transform: translateX(calc(-50% - 1.25rem));
+    }
+  }
+}
+
+@utility animate-pause {
+  animation-play-state: paused;
+}
+
+.sticky {
+  position: -webkit-sticky;
+}
+
 .para {
   /* Example color */
   clip-path: xywh(0 0 100% 100% round 25% 0);
 }
 
-.carousel {
-  animation: carousel 12s linear infinite;
-}
-
-.carousel:hover {
-  animation-play-state: paused;
-}
-
-div:has(.no-more)::-webkit-scrollbar {
-  display: none;
-}
-
-div:has(.no-more) {
-  scrollbar-width: none;
-}
-
-.xpad {
-  @apply md:px-10
-}
-
-@keyframes carousel {
-  to {
-    transform: translateX(calc(-50% - 0.625rem));
-  }
-}
-
+/* 
 @keyframes neutral {
   to {
     transform: translateX(30px);
   }
-}
+} */

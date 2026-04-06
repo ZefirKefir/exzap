@@ -1,15 +1,25 @@
 const CarouselToggle = ({ carousel, setCarousel }) => {
+  const handleOnButton = () => {
+    setCarousel(true);
+    localStorage.setItem('carousel', true);
+  }
+  const handleOffButton = () => {
+    setCarousel(false);
+    localStorage.setItem('carousel', false);
+  }
+
   return (
-    <div className={`carousel-button
-      absolute top-32 xs:top-0 sm:top-24 lg:top-8 right-6 md:right-8
-      flex gap-1 bg-red-800
+    <div className={`fixed z-50 duration-150
+      top-1/2 -translate-y-1/2
+      right-2 sm:right-4
+      flex flex-col gap-1 bg-red-800
       border-4 rounded-lg border-red-800
       font-bold text-lg text-red-800 tracking-wide
     `}>
       <button className={`group p-1.5 rounded-l-md cursor-pointer duration-300
           ${carousel ? 'bg-white/0' :
           'bg-white hover:bg-white/80 active:bg-white/50'}`}
-        onClick={() => setCarousel(true)}
+        onClick={handleOnButton}
         disabled={carousel}
       >
         <svg className={`w-10 lg:w-12 duration-300
@@ -25,7 +35,7 @@ const CarouselToggle = ({ carousel, setCarousel }) => {
       <button className={`group p-1.5 rounded-r-md cursor-pointer duration-300
         ${(!carousel) ? 'bg-white/0' :
           'bg-white hover:bg-white/80 active:bg-white/50'}`}
-        onClick={() => setCarousel(false)}
+        onClick={handleOffButton}
         disabled={!carousel}
       >
         <svg className={`w-10 lg:w-12 [&,*]:duration-300

@@ -1,64 +1,63 @@
-import data from '../../public/data'
-import ProductImage from './ProductImage'
 import CarouselToggle from './CarouselToggle'
 import { useEffect, useState } from 'react'
 import CatalogTitle from './CatalogTitle'
 import CarouselContainer from './CarouselContainer'
-import { CheckCheck, Icon } from 'lucide-react'
 
 
 const Catalog = () => {
-  const [carousel, setCarousel] = useState(true);
+  const initial = localStorage.getItem('carousel');
+  const [carousel, setCarousel] = useState(initial === 'true');
   useEffect(() => {
-    const carousels = document.querySelectorAll('.carousel');
+    const clones = document.querySelectorAll('.clone');
+    const sliders = document.querySelectorAll('.slider');
 
-    const button = document.querySelector('.carousel-button');
-    button.addEventListener('click', () => {
-      carousels.forEach(elem => {
-        const parent = elem.closest('div');
-
-        if (!elem.classList.contains('no-more')) {
-          elem.style.animationPlayState = 'paused';
-          elem.style.transform = 'translateX(' + elem.getBoundingClientRect().left + 'px)';
-          elem.style.animation = 'none';
-          // todo: make carousel available for mobile on each section
-          setTimeout(() => {
-            elem.style.transform = 'translateX(0)';
-            elem.classList.add('xpad');
-            parent.style.overflowX = 'scroll';
-          }, 0);
-        } else {
-          parent.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth',
-          });
-          // elem.style.padding = 0;
-          parent.style.overflowX = 'hidden';
-          elem.style.animation = 'carousel 12s linear infinite';
-          elem.addEventListener('mouseover', () => {
-            elem.style.animationPlayState = 'paused';
-          });
-          elem.addEventListener('mouseout', () => {
-            elem.style.animationPlayState = 'running';
-          });
-        }
+    if (carousel) {
+      sliders.forEach(slider => {
+        slider.closest('div').classList.remove('mx-2', 'sm:mx-3', 'md:mx-5');
+        slider.closest('div').classList.add('mx-0', 'sm:mx-0', 'md:mx-0');
       })
-    })
-  }, []);
+      setTimeout(() => {
+        clones.forEach(clone => {
+          clone.classList.remove('hidden');
+        });
+        sliders.forEach(slider => {
+          slider.classList.add('animate-carousel');
+        });
+      }, 100);
+    } else {
+      sliders.forEach(slider => {
+        slider.style.transform = 'translateX(' + slider.getBoundingClientRect().left + 'px)';
+        slider.classList.remove('animate-carousel');
+        setTimeout(() => {
+          slider.style.transform = 'translateX(0)';
+          slider.closest('div').classList.remove('mx-0', 'sm:mx-0', 'md:mx-0');
+          slider.closest('div').classList.add('mx-2', 'sm:mx-3', 'md:mx-5');
+        }, 10);
+      });
+      setTimeout(() => {
+        clones.forEach(clone => {
+          clone.classList.add('hidden');
+        });
+      }, 10);
+    }
+  }, [carousel]);
 
   return (
     <section className='relative py-12'>
       <CarouselToggle carousel={carousel} setCarousel={setCarousel} />
-      <h2 className='text-2xl font-bold tracking-wider text-center mb-28 sm:mb-20 md:text-3xl'>
-        Bizning <span className='text-red-800'>mahsulotlarimiz</span>
-      </h2>
+
+      <div className='relative pb-10 md:pb-20 sp:mb-20'>
+        <h2 className='text-2xl font-bold tracking-wider text-center md:text-3xl lg:text-4xl'>
+          Bizning <span className='text-red-800'>mahsulotlarimiz</span>
+        </h2>
+      </div>
 
       {/* 1. oil */}
-      <CatalogTitle>
-        <svg className='w-16' viewBox="0 0 488.162 488.162">
-          <g className='*:fill-red-800'>
-            <path d="M440.443,91.682c0-26.385-21.468-47.853-47.853-47.853h-35.205h-109.24V24.386
+      <CarouselContainer carousel={carousel} number={1}>
+        <CatalogTitle>
+          <svg className='w-16' viewBox="0 0 488.162 488.162">
+            <g className='*:fill-red-800'>
+              <path d="M440.443,91.682c0-26.385-21.468-47.853-47.853-47.853h-35.205h-109.24V24.386
 		c0-13.469-9.039-24.386-20.2-24.386h-86.082c-11.152,0-20.2,10.917-20.2,24.386v19.452H95.572
 		c-26.385,0-47.853,21.468-47.853,47.853c0,19.265,11.445,35.904,27.889,43.488v31.555c-16.444,7.584-27.889,24.223-27.889,43.488
 		s11.445,35.904,27.889,43.488v31.555c-16.444,7.576-27.889,24.223-27.889,43.488s11.445,35.904,27.889,43.488v24.581
@@ -71,96 +70,69 @@ const Catalog = () => {
 		H95.572c-8.47,0-15.339-6.869-15.339-15.339s6.869-15.339,15.339-15.339h12.551v-87.846H95.572c-8.47,0-15.339-6.869-15.339-15.339
 		s6.869-15.339,15.339-15.339h26.093h9.112h117.368h109.232h35.205c8.47,0,15.339,6.869,15.339,15.339s-6.869,15.339-15.339,15.339
 		h-12.551v87.846h12.551c8.47,0,15.339,6.869,15.339,15.339S401.06,225.552,392.59,225.552z"/>
-            <path d="M244.081,120.815c0,0-8.665,12.339-20.598,31.88c-45.78,74.937-139.836,256.066,20.598,256.066
+              <path d="M244.081,120.815c0,0-8.665,12.339-20.598,31.88c-45.78,74.937-139.836,256.066,20.598,256.066
 		c185.015,0,31.588-240.882,4.064-281.98C245.576,122.953,244.081,120.815,244.081,120.815z M255.038,357.47
 		c21.76-10.047,25.231-30.572,19.891-52.316c-4.519-18.419,23.833-26.231,28.361-7.82c8.25,33.595,0.35,69.946-33.408,85.529
 		C252.786,390.749,237.838,365.412,255.038,357.47z"/>
-          </g>
-        </svg>
-        Motor moylari
-      </CatalogTitle>
-      <CarouselContainer carousel={carousel}>
-        {data.oils.map((oil, i) => (
-          <li key={i}>
-            <ProductImage src={oil.image} alt={oil.name} />
-          </li>
-        ))}
-        {data.oils.map((oil, i) => (
-          <li className={(!carousel) ? 'hidden' : ''} key={i} aria-hidden>
-            <ProductImage src={oil.image} alt={oil.name} />
-          </li>
-        ))}
+            </g>
+          </svg>
+          Motor moylari
+        </CatalogTitle>
       </CarouselContainer>
 
+
       {/* 2. antifreeze */}
-      <CatalogTitle>
-        <svg className='w-16 fill-red-800' viewBox="0 0 191.851 191.851" >
-          <g>
-            <path d="M188.103,147.322c-3.583-2.072-8.173-0.849-10.247,2.739c-4.734,8.189-13.54,13.275-22.979,13.275
+      <CarouselContainer carousel={carousel} number={2}>
+        <CatalogTitle>
+          <svg className='w-16 fill-red-800' viewBox="0 0 191.851 191.851" >
+            <g>
+              <path d="M188.103,147.322c-3.583-2.072-8.173-0.849-10.247,2.739c-4.734,8.189-13.54,13.275-22.979,13.275
 		c-9.442,0-18.249-5.087-22.983-13.275c-1.341-2.318-3.816-3.746-6.494-3.746c-2.678,0-5.153,1.429-6.493,3.748
 		c-4.73,8.188-13.535,13.273-22.976,13.273c-9.439,0-18.246-5.088-22.985-13.277c-1.341-2.317-3.818-3.744-6.495-3.744
 		c-2.678,0-5.152,1.428-6.493,3.746c-4.735,8.189-13.54,13.275-22.98,13.275c-9.442,0-18.249-5.087-22.984-13.275
 		c-2.073-3.587-6.662-4.809-10.247-2.739c-3.586,2.074-4.812,6.661-2.738,10.247c7.407,12.809,21.189,20.768,35.969,20.768
 		c11.168,0,21.767-4.545,29.476-12.295c7.711,7.75,18.31,12.295,29.477,12.295c11.168,0,21.765-4.543,29.471-12.291
 		c7.709,7.747,18.308,12.291,29.476,12.291c14.777,0,28.559-7.958,35.966-20.768C192.916,153.983,191.689,149.396,188.103,147.322z"
-            />
-            <path d="M131.893,115.35c-2.073-3.588-6.664-4.813-10.247-2.739c-3.586,2.073-4.813,6.661-2.739,10.247
+              />
+              <path d="M131.893,115.35c-2.073-3.588-6.664-4.813-10.247-2.739c-3.586,2.073-4.813,6.661-2.739,10.247
 		c7.406,12.81,21.19,20.768,35.97,20.768c14.778,0,28.559-7.958,35.966-20.768c2.073-3.586,0.847-8.174-2.739-10.247
 		c-3.586-2.073-8.174-0.847-10.247,2.739c-4.734,8.188-13.539,13.275-22.979,13.275C145.434,128.626,136.628,123.539,131.893,115.35
 		z"/>
-            <path d="M36.979,143.626c14.777,0,28.559-7.957,35.967-20.767c2.074-3.586,0.848-8.174-2.737-10.247
+              <path d="M36.979,143.626c14.777,0,28.559-7.957,35.967-20.767c2.074-3.586,0.848-8.174-2.737-10.247
 		c-3.585-2.072-8.174-0.849-10.247,2.737c-4.736,8.189-13.543,13.276-22.982,13.276c-9.442,0-18.249-5.087-22.984-13.275
 		c-2.074-3.587-6.661-4.813-10.247-2.739c-3.586,2.073-4.812,6.661-2.739,10.247C8.416,135.668,22.198,143.626,36.979,143.626z"/>
-            <path d="M96.098,155.021c10.988,0,19.894-8.907,19.894-19.896c0-8.332-5.127-15.458-12.395-18.421v-15.58h25.475
+              <path d="M96.098,155.021c10.988,0,19.894-8.907,19.894-19.896c0-8.332-5.127-15.458-12.395-18.421v-15.58h25.475
 		c4.143,0,7.5-3.357,7.5-7.5c0-4.143-3.357-7.5-7.5-7.5h-25.475V73.357h25.475c4.143,0,7.5-3.357,7.5-7.5c0-4.143-3.357-7.5-7.5-7.5
 		h-25.475V45.588h25.475c4.143,0,7.5-3.357,7.5-7.5s-3.357-7.5-7.5-7.5h-25.475v-9.574c0-4.143-3.357-7.5-7.499-7.5
 		s-7.5,3.357-7.5,7.5v95.69c-7.269,2.963-12.396,10.089-12.396,18.421C76.201,146.114,85.11,155.021,96.098,155.021z"/>
-          </g>
-        </svg>
-        Antifriz va tosollar
-      </CatalogTitle>
-      <CarouselContainer carousel={carousel}>
-        {data.antifreeze.map((af, i) => (
-          <li key={i}>
-            <ProductImage src={af.image} alt={af.name} />
-          </li>
-        ))}
-        {data.antifreeze.map((af, i) => (
-          <li className={(!carousel) ? 'hidden' : ''} key={i} aria-hidden>
-            <ProductImage src={af.image} alt={af.name} />
-          </li>
-        ))}
+            </g>
+          </svg>
+          Antifriz va tosollar
+        </CatalogTitle>
       </CarouselContainer>
+
 
       {/* 3. accumulators */}
-      <CatalogTitle>
-        <svg viewBox="0 0 24 24" fill="none" className='w-16 *:stroke-red-800 *:stroke-[1.75]'>
-          <path d="M22 14V11.9751C22 10.1294 22 9.20663 21.6078 8.51698C21.3409 8.04767 20.9523 7.65908 20.483 7.39219C19.7934 7 18.8706 7 17.0249 7H16.7454C16.6224 7 16.561 7 16.5042 6.9935C16.2083 6.95961 15.943 6.79559 15.7803 6.54609C15.7491 6.49827 15.7216 6.44329 15.6667 6.33333C15.5567 6.11345 15.5017 6.00345 15.4394 5.90782C15.1141 5.40882 14.5833 5.08078 13.9915 5.01299C13.8781 5 13.7552 5 13.5093 5H10.4907C10.2448 5 10.1219 5 10.0085 5.01299C9.41668 5.08078 8.8859 5.40882 8.56062 5.90782C8.49827 6.00346 8.44329 6.11342 8.33333 6.33333C8.27836 6.44328 8.25086 6.49827 8.21969 6.54609C8.05705 6.79559 7.79166 6.95961 7.49576 6.9935C7.43905 7 7.37758 7 7.25464 7H6.97508C5.12945 7 4.20663 7 3.51698 7.39219C3.04767 7.65908 2.65908 8.04767 2.39219 8.51698C2 9.20663 2 10.1294 2 11.9751V14C2 16.8284 2 18.2426 2.87868 19.1213C3.75736 20 5.17157 20 8 20H16C18.8284 20 20.2426 20 21.1213 19.1213C22 18.2426 22 16.8284 22 14Z" />
-          <path d="M7 7V6C7 5.05719 7 4.58579 6.70711 4.29289C6.41421 4 5.94281 4 5 4C4.05719 4 3.58579 4 3.29289 4.29289C3 4.58579 3 5.05719 3 6V7.5" />
-          <path d="M21 8V6C21 5.05719 21 4.58579 20.7071 4.29289C20.4142 4 19.9428 4 19 4C18.0572 4 17.5858 4 17.2929 4.29289C17 4.58579 17 5.05719 17 6V7" />
-          <path d="M9 13.5H6" strokeLinecap="round" />
-          <path d="M18 13.5L16.5 13.5M16.5 13.5L15 13.5M16.5 13.5L16.5 12M16.5 13.5L16.5 15" strokeLinecap="round" />
-        </svg>
-        Akkumulyatorlar
-      </CatalogTitle>
-      <CarouselContainer carousel={carousel}>
-        {data.accumulators.map((accumulator, i) => (
-          <li key={i}>
-            <ProductImage src={accumulator.image} alt={accumulator.name} />
-          </li>
-        ))}
-        {data.accumulators.map((accumulator, i) => (
-          <li className={(!carousel) ? 'hidden' : ''} key={i} aria-hidden>
-            <ProductImage src={accumulator.image} alt={accumulator.name} />
-          </li>
-        ))}
+      <CarouselContainer carousel={carousel} number={3}>
+        <CatalogTitle>
+          <svg viewBox="0 0 24 24" className='w-16 *:stroke-red-800 *:stroke-[1.75] fill-none'>
+            <path d="M22 14V11.9751C22 10.1294 22 9.20663 21.6078 8.51698C21.3409 8.04767 20.9523 7.65908 20.483 7.39219C19.7934 7 18.8706 7 17.0249 7H16.7454C16.6224 7 16.561 7 16.5042 6.9935C16.2083 6.95961 15.943 6.79559 15.7803 6.54609C15.7491 6.49827 15.7216 6.44329 15.6667 6.33333C15.5567 6.11345 15.5017 6.00345 15.4394 5.90782C15.1141 5.40882 14.5833 5.08078 13.9915 5.01299C13.8781 5 13.7552 5 13.5093 5H10.4907C10.2448 5 10.1219 5 10.0085 5.01299C9.41668 5.08078 8.8859 5.40882 8.56062 5.90782C8.49827 6.00346 8.44329 6.11342 8.33333 6.33333C8.27836 6.44328 8.25086 6.49827 8.21969 6.54609C8.05705 6.79559 7.79166 6.95961 7.49576 6.9935C7.43905 7 7.37758 7 7.25464 7H6.97508C5.12945 7 4.20663 7 3.51698 7.39219C3.04767 7.65908 2.65908 8.04767 2.39219 8.51698C2 9.20663 2 10.1294 2 11.9751V14C2 16.8284 2 18.2426 2.87868 19.1213C3.75736 20 5.17157 20 8 20H16C18.8284 20 20.2426 20 21.1213 19.1213C22 18.2426 22 16.8284 22 14Z" />
+            <path d="M7 7V6C7 5.05719 7 4.58579 6.70711 4.29289C6.41421 4 5.94281 4 5 4C4.05719 4 3.58579 4 3.29289 4.29289C3 4.58579 3 5.05719 3 6V7.5" />
+            <path d="M21 8V6C21 5.05719 21 4.58579 20.7071 4.29289C20.4142 4 19.9428 4 19 4C18.0572 4 17.5858 4 17.2929 4.29289C17 4.58579 17 5.05719 17 6V7" />
+            <path d="M9 13.5H6" strokeLinecap="round" />
+            <path d="M18 13.5L16.5 13.5M16.5 13.5L15 13.5M16.5 13.5L16.5 12M16.5 13.5L16.5 15" strokeLinecap="round" />
+          </svg>
+          Akkumulyatorlar
+        </CatalogTitle>
       </CarouselContainer>
 
+
       {/* 4. tires */}
-      <CatalogTitle>
-        <svg className='w-16 fill-red-800' viewBox="0 0 512 512">
-          <g>
-            <path d="M341.333,0H170.667C108.422,0,55.662,48.008,25.924,119.483c-0.024,0.055-0.044,0.11-0.067,0.165
+      <CarouselContainer carousel={carousel} number={4}>
+        <CatalogTitle>
+          <svg className='w-16 fill-red-800' viewBox="0 0 512 512">
+            <g>
+              <path d="M341.333,0H170.667C108.422,0,55.662,48.008,25.924,119.483c-0.024,0.055-0.044,0.11-0.067,0.165
 				C9.392,159.287,0,206.126,0,256c0,139.916,73.871,256,170.667,256h170.667C438.129,512,512,395.916,512,256S438.129,0,341.333,0z
 				 M93.998,425.901c-10.808-13.606-20.357-29.992-28.198-48.563l12.383,5.071c4.298,1.76,9.054,2.069,13.544,0.881l93.032-24.628
 				c0.002,0.006,0.004,0.013,0.006,0.019c0.437,1.517,0.885,3.026,1.341,4.528c0.213,0.702,0.424,1.405,0.641,2.103
@@ -195,72 +167,72 @@ const Catalog = () => {
 				c-68.152,0-128-94.047-128-213.333c0-28.196,3.348-54.979,9.355-79.446c0.122-0.423,0.228-0.852,0.324-1.284
 				c7.517-30.049,19.053-56.558,33.348-77.816c0.536-0.689,1.034-1.407,1.482-2.156c22.783-32.874,52.263-52.631,83.492-52.631
 				c68.152,0,128,94.047,128,213.333S409.486,469.333,341.333,469.333z"/>
-            <path d="M341.333,85.333C289.26,85.333,256,162.944,256,256s33.26,170.667,85.333,170.667c52.073,0,85.333-77.61,85.333-170.667
+              <path d="M341.333,85.333C289.26,85.333,256,162.944,256,256s33.26,170.667,85.333,170.667c52.073,0,85.333-77.61,85.333-170.667
 				S393.406,85.333,341.333,85.333z M366.981,353.191C358.047,374.037,347.952,384,341.333,384c-6.619,0-16.714-9.963-25.648-30.809
 				c-10.713-24.999-17.019-59.788-17.019-97.191s6.306-72.193,17.019-97.191C324.619,137.963,334.715,128,341.333,128
 				c6.618,0,16.714,9.963,25.647,30.809C377.694,183.807,384,218.597,384,256S377.694,328.193,366.981,353.191z"/>
-          </g>
-        </svg>
-        Shinalar
-      </CatalogTitle>
-      <CarouselContainer carousel={carousel} isShort>
-        {data.tires.map((tire, i) => (
-          <li key={i}>
-            <ProductImage src={tire.image} alt={tire.name} />
-          </li>
-        ))}
+            </g>
+          </svg>
+          Shinalar
+        </CatalogTitle>
       </CarouselContainer>
 
-      {/* 5. brake liquids */}
-      <CatalogTitle>
-        <CheckCheck className='block w-16 h-16 text-red-800' />
-        Tormoz suyuqligi
-      </CatalogTitle>
-      <CarouselContainer carousel={carousel} isShort>
-        {data.brakeFluids.map((bf, i) => (
-          <li key={i}>
-            <ProductImage src={bf.image} alt={bf.name} />
-          </li>
-        ))}
+
+      {/* 5. brake fluids */}
+      <CarouselContainer carousel={carousel} number={5}>
+        <CatalogTitle>
+          <svg className='w-16 fill-red-800' viewBox="0 0 512 512">
+            <g>
+              <path d="M324.204,105.477h-17.414V37.244C306.791,16.674,290.117,0,269.547,0h-27.096c-20.57,0-37.244,16.674-37.244,37.244
+			v68.233h-17.415c-19.837,0-35.918,16.081-35.918,35.918v54.583c0,10.552,8.555,19.107,19.107,19.107h170.033
+			c10.554,0.001,19.109-8.554,19.109-19.107v-54.581C360.124,121.558,344.042,105.477,324.204,105.477z"/>
+              <path d="M341.017,256.469H170.983c-10.552,0-19.107,8.555-19.107,19.107v60.32c0,10.552,8.555,19.107,19.107,19.107h170.033
+			c10.552,0,19.107-8.555,19.107-19.107v-60.32C360.124,265.024,351.569,256.469,341.017,256.469z"/>
+              <path d="M341.018,396.387H170.983c-10.554-0.001-19.107,8.554-19.107,19.107v60.587c0,19.837,16.081,35.918,35.918,35.918h136.413
+			c19.837,0,35.918-16.081,35.918-35.918v-60.587C360.125,404.942,351.57,396.387,341.018,396.387z"/>
+            </g>
+          </svg>
+          Tormoz suyuqligi
+        </CatalogTitle>
       </CarouselContainer>
+
 
       {/* 6. lubricants */}
-      <CatalogTitle>
-        <CheckCheck className='block w-16 h-16 text-red-800' />
-        Litol va smazkalar
-      </CatalogTitle>
-      <CarouselContainer carousel={carousel} isShort>
-        {data.lubricants.map((lube, i) => (
-          <li key={i}>
-            <ProductImage src={lube.image} alt={lube.name} />
-          </li>
-        ))}
+      <CarouselContainer carousel={carousel} number={6}>
+        <CatalogTitle>
+          <svg className='w-16 fill-red-800' viewBox="0 0 24 24">
+            <g>
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path d="M9.07 7L6 11.606V20h12V7H9.07zM8 5h11a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V11l4-6zm5-4h5a1 1 0 0 1 1 1v2h-7V2a1 1 0 0 1 1-1zM8 12h2v6H8v-6z" />
+            </g>
+          </svg>
+          Litol va smazkalar
+        </CatalogTitle>
       </CarouselContainer>
+
 
       {/* 7. glass liquids */}
-      <CatalogTitle>
-        <CheckCheck className='block w-16 h-16 text-red-800' />
-        Shisha yuvish suyuqligi
-      </CatalogTitle>
-      <CarouselContainer carousel={carousel} isShort>
-        {data.glassLiquids.map((gl, i) => (
-          <li key={i}>
-            <ProductImage src={gl.image} alt={gl.name} />
-          </li>
-        ))}
+      <CarouselContainer carousel={carousel} number={7}>
+        <CatalogTitle>
+          <svg className='w-16 fill-red-800' viewBox="0 0 24 24">
+            <path d="M4,20V4A2,2,0,0,1,6,2H18a2,2,0,0,1,2,2V20a2,2,0,0,1-2,2H6a2,2,0,0,1-2-2M18,4H6V20H18Z" />
+            <polyline points="7.77 9.91 11.01 6.66 12.07 7.72 8.83 10.97 7.77 9.91" />
+            <rect x="7.54" y="11.19" width="8.01" height="1.5" transform="translate(-5.06 11.66) rotate(-45)" />
+            <rect width="24" height="24" transform="translate(24 0) rotate(90)" fill="none" />
+          </svg>
+          Shisha yuvish suyuqligi
+        </CatalogTitle>
       </CarouselContainer>
 
+
       {/* 8. coolants */}
-      <CatalogTitle>
-        <CheckCheck className='block w-16 h-16 text-red-800' />
-        Issiqlik tashuvchilar
-      </CatalogTitle>
-      <CarouselContainer carousel={carousel} isShort>
-        {data.coolants.map((coolant, i) => (
-          <li key={i}>
-            <ProductImage src={coolant.image} alt={coolant.name} />
-          </li>
-        ))}
+      <CarouselContainer carousel={carousel} number={8}>
+        <CatalogTitle>
+          <svg className='w-16 *:stroke-red-800 fill-none' viewBox="0 0 24 24">
+            <path className='stroke-2' d="M8.5 16C8.5 16 9.34213 16.3664 9.9 16.4635C11.546 16.7498 12.454 15.2502 14.1 15.5365C14.6579 15.6336 15.5 16 15.5 16M7.5 12C7.5 12 8.58274 12.3664 9.3 12.4635C11.4163 12.7498 12.5837 11.2502 14.7 11.5365C15.4173 11.6336 16.5 12 16.5 12M8.5 8C8.5 8 9.34213 8.36641 9.9 8.46346C11.546 8.74982 12.454 7.25018 14.1 7.53654C14.6579 7.63359 15.5 8 15.5 8M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Issiqlik tashuvchilar
+        </CatalogTitle>
       </CarouselContainer>
 
     </section>
