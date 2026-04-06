@@ -16,7 +16,7 @@ const CarouselToggle = ({ carousel, setCarousel }) => {
       border-4 rounded-lg border-red-800
       font-bold text-lg text-red-800 tracking-wide
     `}>
-      <button className={`group p-1.5 rounded-l-md cursor-pointer duration-300
+      <button className={`group p-1.5 rounded-t-md cursor-pointer duration-300
           ${carousel ? 'bg-white/0' :
           'bg-white hover:bg-white/80 active:bg-white/50'}`}
         onClick={handleOnButton}
@@ -32,7 +32,7 @@ const CarouselToggle = ({ carousel, setCarousel }) => {
           <rect className="w-8 h-8 fill-none" />
         </svg>
       </button>
-      <button className={`group p-1.5 rounded-r-md cursor-pointer duration-300
+      <button className={`group p-1.5 rounded-b-md cursor-pointer duration-300
         ${(!carousel) ? 'bg-white/0' :
           'bg-white hover:bg-white/80 active:bg-white/50'}`}
         onClick={handleOffButton}
